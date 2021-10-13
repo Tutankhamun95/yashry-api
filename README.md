@@ -18,4 +18,12 @@ Yashry-API is a custom built PHP API that provides endpoints to retrieve a list 
 - Buy any two tops (t-shirt or blouse) and get any jacket half its price.
 - Buy any two items or more and get a maximum of $10 off shipping fees. 
 
+## Solution
+
+1) A databse is to be used to create tables of "Items" & "Shipping Rates"
+
+2) Each item will have a corresponding Shipping Rate.
+
+3) The total (including Shipping, discounts & VAT) will be calculated using a PHP function and returned 
+
 

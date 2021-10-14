@@ -9,17 +9,45 @@ $db = $database->getConnection();
 $items = new Employee($db);
 $records = $items->getEmployees();
 $itemCount = $records->num_rows;
-echo json_encode($itemCount);
 if($itemCount > 0){
 $employeeArr = array();
-$employeeArr["body"] = array();
-$employeeArr["itemCount"] = $itemCount;
+// $employeeArr["body"] = array();
+// $employeeArr["itemCount"] = $itemCount;
 while ($row = $records->fetch_assoc())
 {
-array_push($employeeArr["body"], $row);
+array_push($employeeArr, $row);
 }
-echo json_encode($employeeArr);
+$omak = json_encode($employeeArr);
+// echo $omak;
+$array = json_decode($omak);
+foreach ($array as $value)
+{
+   $itemName = $value ->item_name;
+   echo "Item Name: " .$itemName ."\n";
+
+   $itemPrice = $value->item_price;
+   echo "Item Price: " .$itemPrice ."\n";
+
+   $itemWeight = $value->item_weight;
+   echo "Item Weight: " .$itemWeight ."\n";
+
+   $shippingCountry = $value->shipping_country_name;
+   echo "Shipping Country: " .$shippingCountry ."\n";
+
+   $shippingRate = $value->shipping_rate;
+   echo "Shipping Rate: " .$shippingRate ."\n";
+
+   echo "\n";
+
+   $total = 0;
+   $total+= $itemPrice;
+
+ 
 }
+echo "Total: " .$total;
+
+}
+
 else{
 http_response_code(404);
 echo json_encode(

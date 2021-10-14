@@ -20,8 +20,11 @@ $this->db = $db;
 
 // GET ALL
 public function getEmployees(){
-$sqlQuery = "SELECT id, name, email, designation, created FROM " . $this->db_table . "";
+    $sqlQuery = "SELECT items.item_name, items.item_price, items.item_weight, shipping.shipping_country_name, shipping.shipping_rate FROM items, shipping WHERE items.shipping_id = shipping.shipping_id";
+// $sqlQuery = "SELECT id, name, email, designation, created FROM " . $this->db_table . "";
 $this->result = $this->db->query($sqlQuery);
+
+
 return $this->result;
 }
 

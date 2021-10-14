@@ -1,0 +1,1 @@
+SELECT items.item_name, items.item_price, items.item_name, shipping.shipping_country_name, shipping.shipping_rate FROM items, shipping WHERE items.shipping_id = shipping.shipping_id

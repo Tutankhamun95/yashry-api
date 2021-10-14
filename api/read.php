@@ -21,32 +21,65 @@ $omak = json_encode($employeeArr);
 // echo $omak;
 $array = json_decode($omak);
 foreach ($array as $value)
-{
-   $itemName = $value ->item_name;
-   echo "Item Name: " .$itemName ."\n";
+        {
+        $itemName = $value ->item_name;
+        echo $itemName ."\n";
 
-   $itemPrice = $value->item_price;
-   echo "Item Price: " .$itemPrice ."\n";
+        $itemPrice = $value->item_price;
+        echo "Item Price: "."$" .$itemPrice ."\n";
+        
 
-   $itemWeight = $value->item_weight;
-   echo "Item Weight: " .$itemWeight ."\n";
+        // echo "Item Weight: " .$itemWeight ."\n";
 
-   $shippingCountry = $value->shipping_country_name;
-   echo "Shipping Country: " .$shippingCountry ."\n";
+        // $shippingCountry = $value->shipping_country_name;
+        // echo "Shipping Country: " .$shippingCountry ."\n";
 
-   $shippingRate = $value->shipping_rate;
-   echo "Shipping Rate: " .$shippingRate ."\n";
+        $itemWeight = $value->item_weight;
+        $shippingRate = $value->shipping_rate;
+        $totalShipping = ($shippingRate*10)*($itemWeight);
+        echo "Shipping Cost ($ per 100g): "."$" .$totalShipping ."\n";
 
-   echo "\n";
 
-   $total = 0;
-   $total+= $itemPrice;
+        echo "\n";
 
- 
-}
-echo "Total: " .$total;
+        // $sum = 0;
+        // $sum += $itemPrice;
 
-}
+        // $shippingTotal = 0;
+        // $shippingTotal += $shippingCost;
+        $subTotal = 0;
+        $shipping=0;
+        $vat=0;
+        foreach ($array as $key => $value) {
+            $subTotal+= $value->item_price;
+            
+            
+            $itemWeight = $value->item_weight;
+            $shippingRate = $value->shipping_rate;
+            $totalShipping = ($shippingRate*10)*($itemWeight);
+            $itemPrice = $value->item_price;
+            $itemVat = ($itemPrice)*(14/100);
+
+            $shipping+=$totalShipping;  
+            $vat+=$itemVat;          
+        }
+        
+        
+
+        
+        }
+
+        echo "\n"."Subtotal: " ."$".$subTotal;
+        echo "\n"."Shipping: " ."$".$shipping;
+        echo "\n"."VAT: " ."$".$vat;
+        
+
+
+            // echo "\n";
+            // echo "Sub-Total: " .$sum+=$itemPrice;
+            // echo "\n";
+            // echo "Shipping: " .$shippingTotal;
+        }
 
 else{
 http_response_code(404);

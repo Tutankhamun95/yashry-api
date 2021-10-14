@@ -6,7 +6,7 @@ private $db;
 private $db_table = "employee";
 // Columns
 public $id;
-public $name;
+public $item_name;
 public $email;
 public $designation;
 public $created;

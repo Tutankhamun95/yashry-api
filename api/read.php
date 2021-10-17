@@ -5,6 +5,10 @@ include_once '../database/database.php';
 include_once '../models/employees.php';
 $database = new Database();
 
+$discount = 0.1;
+$isThereDiscount = false;
+$topCount = 0;
+
 $db = $database->getConnection();
 $items = new Employee($db);
 $records = $items->getEmployees();
@@ -26,7 +30,17 @@ foreach ($array as $value)
         echo $itemName ."\n";
 
         $itemPrice = $value->item_price;
-        echo "Item Price: "."$" .$itemPrice ."\n";
+        $shoesDiscount = ($itemPrice)-($itemPrice*$discount);
+        
+
+        $discount = 0.1;
+
+        if($itemName == "Shoes"){
+            echo "Item Price: "."$" .$shoesDiscount." "."(".($discount*100)."% OFF) - Shoes Sale" ."\n";
+            $isThereDiscount = true;
+        }else{
+            echo "Item Price: "."$" .$itemPrice ."\n";
+        }
         
 
         // echo "Item Weight: " .$itemWeight ."\n";
@@ -50,14 +64,19 @@ foreach ($array as $value)
         $subTotal = 0;
         $shipping=0;
         $vat=0;
+        $topCount = 0;
         foreach ($array as $key => $value) {
             $subTotal+= $value->item_price;
             
             
             $itemWeight = $value->item_weight;
             $shippingRate = $value->shipping_rate;
+
             $totalShipping = ($shippingRate*10)*($itemWeight);
             $itemPrice = $value->item_price;
+            $shoesDiscount = ($itemPrice)-($itemPrice*$discount);
+
+            $itemName = $value->item_name;
             $itemVat = ($itemPrice)*(14/100);
 
             $shipping+=$totalShipping;  
@@ -72,6 +91,30 @@ foreach ($array as $value)
         echo "\n"."Subtotal: " ."$".$subTotal;
         echo "\n"."Shipping: " ."$".$shipping;
         echo "\n"."VAT: " ."$".$vat;
+
+        if($isThereDiscount == true){
+            echo "\nDiscount: ";
+        }
+
+
+        if($itemName == "Shoes"){
+            echo "\n         ".($discount*100)."% off shoes: -$".($itemPrice*$discount) ."\n";
+            $isThereDiscount = true;
+        }
+
+
+
+        
+
+        // if($itemName == "T-Shirt"){
+        //     $topCount++;
+
+        // }
+        // if($itemName == "Blouse"){
+        //     $topCount++;
+        // }
+
+        
         
 
 
